@@ -126,11 +126,14 @@ backend:
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Complete process detection and connection system with psutil integration for game process monitoring and management"
+      - working: true
+        agent: "testing"
+        comment: "Tested process detection and connection endpoints. API correctly detects processes and handles connection requests with proper validation and error handling."
 
   - task: "Automation Engine API"
     implemented: true
