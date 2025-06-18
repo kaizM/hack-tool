@@ -237,18 +237,23 @@ def run_automation(actions):
                     
                 action_type = action.get("type")
                 
-                if action_type == "click":
-                    x, y = action.get("x", 100), action.get("y", 100)
-                    pyautogui.click(x, y)
-                elif action_type == "key":
-                    key = action.get("key", "space")
-                    pyautogui.press(key)
-                elif action_type == "wait":
+                if GUI_AVAILABLE:
+                    if action_type == "click":
+                        x, y = action.get("x", 100), action.get("y", 100)
+                        pyautogui.click(x, y)
+                    elif action_type == "key":
+                        key = action.get("key", "space")
+                        pyautogui.press(key)
+                    elif action_type == "type":
+                        text = action.get("text", "")
+                        pyautogui.write(text)
+                else:
+                    # Simulate actions in headless mode
+                    logging.info(f"Simulating action: {action_type}")
+                
+                if action_type == "wait":
                     delay = action.get("duration", 1)
                     time.sleep(delay)
-                elif action_type == "type":
-                    text = action.get("text", "")
-                    pyautogui.write(text)
                 
                 # Small delay between actions
                 time.sleep(0.1)
