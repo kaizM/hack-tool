@@ -126,7 +126,8 @@ class GameHackingAPITest(unittest.TestCase):
         response = requests.post(f"{API_URL}/memory/edit?pid={self.connected_pid}&address={address}", json=payload)
         
         # The API should handle both connected and non-connected processes
-        self.assertIn(response.status_code, [200, 400, 500])
+        # 422 is a valid response for validation errors
+        self.assertIn(response.status_code, [200, 400, 422, 500])
         
         if response.status_code == 200:
             data = response.json()
