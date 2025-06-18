@@ -13,8 +13,13 @@ from datetime import datetime
 import psutil
 import json
 import asyncio
-import pyautogui
-from pynput import mouse, keyboard
+try:
+    import pyautogui
+    from pynput import mouse, keyboard
+    GUI_AVAILABLE = True
+except Exception as e:
+    logging.warning(f"GUI libraries not available: {str(e)}. Running in headless mode.")
+    GUI_AVAILABLE = False
 import threading
 import time
 
